@@ -1,0 +1,56 @@
+java version 
+
+java -version
+
+docker versuion check 
+ docker --version
+ 
+ pull image from docker 
+ docker run hello-world
+ 
+ 
+ which docker running
+ docker ps
+ docker ps -a // amean all
+ 
+ 
+docker images
+ docker images
+ 
+rm          Remove one or more containers
+docker rm f96f79033388
+	
+	
+rmi         Remove one or more images
+docker rmi 452a468a4bf9
+
+if you search a image 
+ docker search hello-world
+ 
+ container create 
+ 1. docker pull hello-world
+ 2.  docker ps -a
+ 3.PS C:\Users\goura> docker create hello-world
+0fadb2ea420e9f8dca74c0c3621f0377c65122838268531bee19a50d561d351f
+ 
+ 4.PS C:\Users\goura> docker ps -a
+CONTAINER ID   IMAGE          COMMAND                  CREATED          STATUS                      PORTS     NAMES
+0fadb2ea420e   hello-world    "/hello"                 5 seconds ago    Created                               jolly_hertz
+
+5.PS C:\Users\goura> docker start 0fadb2ea420e
+0fadb2ea420e
+
+6.PS C:\Users\goura> docker ps -a
+CONTAINER ID   IMAGE          COMMAND                  CREATED              STATUS                      PORTS     NAMES
+0fadb2ea420e   hello-world    "/hello"                 About a minute ago   Exited (0) 16 seconds ago             jolly_hertz
+
+
+git init
+git add .
+git commit -m "first commit"
+git branch -M main
+git remote add origin https://github.com/Gourab-hub/hello-world-docker.git
+git push -u origin main
+
+git config --global user.name "Gourab Banik"
+git config --global user.email "gourabbanik2399@gmail.com"

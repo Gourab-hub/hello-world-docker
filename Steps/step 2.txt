@@ -1,0 +1,102 @@
+java download docker
+docker search openjdk
+
+download jdk image
+docker pull openjdk:27-ea-oraclelinux10
+
+docker run
+docker run openjdk:27-ea-oraclelinux10
+
+docker run attachmode
+docker run -it openjdk:27-ea-oraclelinux10
+jshell> int num=8
+num ==> 8
+jshell> /exit
+
+create spring boot file
+add controller
+from local 
+java -jar target/rest-demo.jar
+
+go to target folder
+PS C:\Users\goura> cd C:\Users\goura\Documents\workspace-spring-tools-for-eclipse-4.32.2.RELEASE\docker-project
+PS C:\Users\goura\Documents\workspace-spring-tools-for-eclipse-4.32.2.RELEASE\docker-project>
+
+check jdk container run or not 
+docker ps
+
+check all file that available in jdk
+C:\Users\goura\Documents\workspace-spring-tools-for-eclipse-4.32.2.RELEASE\docker-project> docker exec trusting_greider ls -a
+
+check which file is present in tmp
+PS C:\Users\goura\Documents\workspace-spring-tools-for-eclipse-4.32.2.RELEASE\docker-project> docker exec trusting_greider ls /tmp
+hsperfdata_root
+
+copy local jar file to docker tmp folder
+PS C:\Users\goura\Documents\workspace-spring-tools-for-eclipse-4.32.2.RELEASE\docker-project> docker cp .\target\rest-demo.jar trusting_greider:/tmp
+Successfully copied 19.8MB to trusting_greider:/tmp
+
+check is really copy or not
+PS C:\Users\goura\Documents\workspace-spring-tools-for-eclipse-4.32.2.RELEASE\docker-project>   
+hsperfdata_root
+rest-demo.jar
+
+create image 
+PS C:\Users\goura\Documents\workspace-spring-tools-for-eclipse-4.32.2.RELEASE\docker-project> docker commit trusting_greider gourabdocker:v1
+sha256:8f432a2261942595bc885cf31741979cf7c2bd5f536231f99fe8b765bda188e9
+
+check images
+PS C:\Users\goura\Documents\workspace-spring-tools-for-eclipse-4.32.2.RELEASE\docker-project> docker images                                                                                                                                       i Info →   U  In Use
+IMAGE                         ID             DISK USAGE   CONTENT SIZE   EXTRA
+gourabdocker:v1               8f432a226194        962MB          327MB
+openjdk:27-ea-oraclelinux10   b87052b059f0        926MB          312MB    U
+
+
+but did't run beacuse default command is jshell
+PS C:\Users\goura\Documents\workspace-spring-tools-for-eclipse-4.32.2.RELEASE\docker-project> docker run gourabdocker:v1
+|  Welcome to JShell -- Version 27-ea
+|  For an introduction type: /help intro
+
+jshell>
+
+docker commit --change='CMD ["java","-jar","/tmp/rest-demo.jar"]' trusting_greider gourabdocker:v2
+
+
+PS C:\Users\goura\Documents\workspace-spring-tools-for-eclipse-4.32.2.RELEASE\docker-project> docker commit --change "CMD java -jar /tmp/rest-demo.jar" trusting_greider gourabdocker:v8
+sha256:012c569325d8a610d1629a6b6d5819b2b454c9dbffd11855972c3333f5778cdb
+PS C:\Users\goura\Documents\workspace-spring-tools-for-eclipse-4.32.2.RELEASE\docker-project> docker run gourabdocker:v8
+
+
+run on your machine
+ docker run -p 8081:8080 gourabdocker:v8
+ 
+ Now:
+
+Host → 8081
+Container → 8080
+
+-----------------
+
+
+1.createing Dockerfile
+# Use Java 17 (important for your earlier error)
+FROM openjdk:27-ea-oraclelinux10
+
+# Set working directory
+WORKDIR /app
+
+# Copy jar file
+COPY target/rest-demo.jar app.jar
+
+# Expose port (Spring Boot default)
+EXPOSE 8080
+
+# Run application
+CMD ["java","-jar","app.jar"]
+
+2. Build Docker Image
+PS C:\Users\goura\Documents\workspace-spring-tools-for-eclipse-4.32.2.RELEASE\docker-project> docker build -t gourabdocker:v1 .
+[+] Building 0.5s (8/8) FINISHED   
+
+3. Run Container
+PS C:\Users\goura\Documents\workspace-spring-tools-for-eclipse-4.32.2.RELEASE\docker-project> docker run -p 8081:8080 gourabdocker:v1
