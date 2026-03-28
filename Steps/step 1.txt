@@ -44,13 +44,3 @@ CONTAINER ID   IMAGE          COMMAND                  CREATED          STATUS  
 CONTAINER ID   IMAGE          COMMAND                  CREATED              STATUS                      PORTS     NAMES
 0fadb2ea420e   hello-world    "/hello"                 About a minute ago   Exited (0) 16 seconds ago             jolly_hertz
 
-
-git init
-git add .
-git commit -m "first commit"
-git branch -M main
-git remote add origin https://github.com/Gourab-hub/hello-world-docker.git
-git push -u origin main
-
-git config --global user.name "Gourab Banik"
-git config --global user.email "gourabbanik2399@gmail.com"
