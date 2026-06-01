@@ -1,5 +1,5 @@
 # Use Java 17 (important for your earlier error)
-FROM openjdk:27-ea-oraclelinux10
+FROM openjdk:17.0.1-jdk-slim
 
 # Set working directory
 WORKDIR /app
